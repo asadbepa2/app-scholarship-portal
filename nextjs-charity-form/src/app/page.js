@@ -11,7 +11,6 @@ import {
 } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 
-// ... rest of your code
 
 const FONT_STACK =
   "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', Inter, 'Helvetica Neue', Arial, sans-serif";
@@ -176,7 +175,7 @@ export default function LoginPage() {
       style={{ fontFamily: FONT_STACK }}
       className="relative flex min-h-screen items-center justify-center overflow-hidden bg-zinc-50 px-4 py-12 dark:bg-[#050505]"
     >
-      {/* Ambient background glow */}
+     
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-gradient-to-br from-indigo-400 to-sky-300 opacity-20 blur-3xl dark:opacity-10" />
         <div className="absolute -bottom-24 -right-16 h-80 w-80 rounded-full bg-gradient-to-tr from-sky-300 to-emerald-300 opacity-20 blur-3xl dark:opacity-10" />
@@ -185,7 +184,7 @@ export default function LoginPage() {
 
       <div className="relative z-10 w-full max-w-md">
         <div className="rounded-3xl border border-zinc-200/70 bg-white/80 p-8 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.18)] backdrop-blur-2xl dark:border-white/10 dark:bg-zinc-900/60 dark:shadow-[0_8px_40px_-12px_rgba(0,0,0,0.6)] sm:p-10">
-          {/* Brand */}
+         
           <div className="flex flex-col items-center text-center">
            
 <img
@@ -201,7 +200,7 @@ export default function LoginPage() {
             </p>
           </div>
 
-          {/* Google sign-in */}
+         
           <button
             type="button"
             onClick={handleGoogleSignIn}
@@ -218,7 +217,7 @@ export default function LoginPage() {
             <div className="h-px flex-1 bg-zinc-200 dark:bg-white/10" />
           </div>
 
-          {/* Segmented control */}
+          
           <div className="relative grid grid-cols-2 rounded-2xl bg-zinc-100 p-1 dark:bg-zinc-800/70">
             <div
               className={`absolute inset-y-1 w-[calc(50%-4px)] rounded-xl bg-white shadow-sm shadow-zinc-900/5 transition-transform duration-300 ease-out dark:bg-zinc-700 ${
@@ -245,7 +244,7 @@ export default function LoginPage() {
             </button>
           </div>
 
-          {/* Form */}
+         
           <form onSubmit={handleSubmit} className="mt-7 space-y-4">
             <div>
               <label htmlFor="email" className="mb-1.5 block text-[13px] font-medium text-zinc-500 dark:text-zinc-400">
@@ -260,7 +259,7 @@ export default function LoginPage() {
                   type="email"
                   required
                   autoComplete="email"
-                  placeholder="you@example.com"
+                  placeholder="Enter Your Mail"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full bg-transparent text-sm outline-none placeholder:text-zinc-400"
