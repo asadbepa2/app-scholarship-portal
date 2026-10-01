@@ -35,7 +35,6 @@ const initialFormData = {
   vision:    { personalStory: "", futureGoals: "" },
 };
 
-/* ─────────────────────────────── Icons ─────────────────────────────── */
 
 function LogoMark() {
   return (
@@ -176,7 +175,6 @@ function CopyIcon() {
   );
 }
 
-/* ─────────────────────────── Shared styles ─────────────────────────── */
 
 const inputClasses =
   "w-full rounded-2xl border border-transparent bg-zinc-100/80 px-4 py-3 text-sm text-zinc-900 outline-none transition placeholder:text-zinc-400 focus:border-indigo-400 focus:bg-white focus:ring-2 focus:ring-indigo-500/40 dark:bg-zinc-800/60 dark:text-zinc-100 dark:focus:bg-zinc-800";
@@ -191,7 +189,6 @@ function Field({ label, hint, children }) {
   );
 }
 
-/* ──────────────────────── Feature 1: Theme Toggle ──────────────────────── */
 
 function useTheme() {
   const [isDark, setIsDark] = useState(false);
@@ -228,7 +225,6 @@ function ThemeToggle({ isDark, onToggle }) {
   );
 }
 
-/* ──────────────────────── Feature 2: Profile Drawer ──────────────────────── */
 
 function getInitials(displayName, email) {
   if (displayName) {
@@ -289,7 +285,6 @@ function ProfileDrawer({ user, onClose, onSignOut, signingOut }) {
       ref={drawerRef}
       className="absolute right-0 top-[calc(100%+8px)] z-50 w-80 overflow-hidden rounded-3xl border border-zinc-200/80 bg-white/95 shadow-2xl shadow-black/10 backdrop-blur-xl dark:border-white/10 dark:bg-zinc-900/95"
     >
-      {/* Avatar + name */}
       <div className="flex flex-col items-center gap-2 bg-gradient-to-b from-indigo-50 to-white px-6 pb-5 pt-6 dark:from-indigo-950/40 dark:to-zinc-900/0">
         <div className="relative mb-1">
           {user?.photoURL ? (
@@ -318,7 +313,6 @@ function ProfileDrawer({ user, onClose, onSignOut, signingOut }) {
         </span>
       </div>
 
-      {/* Info rows */}
       <div className="divide-y divide-zinc-100 px-5 py-1 dark:divide-zinc-800">
         <InfoRow label="Email" value={user?.email || "—"} />
         <InfoRow
@@ -337,7 +331,6 @@ function ProfileDrawer({ user, onClose, onSignOut, signingOut }) {
         <InfoRow label="Application" value={badge.label} />
       </div>
 
-      {/* Sign out */}
       <div className="px-5 pb-5 pt-3">
         <button
           onClick={onSignOut}
@@ -390,8 +383,6 @@ function UserProfileButton({ user, onClick }) {
     </button>
   );
 }
-
-/* ──────────────────────── Feature 3: Saved Links Widget ──────────────────────── */
 
 function SavedLinksWidget({ user }) {
   const [open, setOpen] = useState(false);
@@ -473,7 +464,7 @@ const userId = user?.uid;
 
   return (
     <div className="overflow-hidden rounded-3xl border border-zinc-200/70 bg-white/70 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.10)] backdrop-blur-xl dark:border-white/10 dark:bg-zinc-900/50">
-      {/* Header toggle */}
+  
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
@@ -493,10 +484,10 @@ const userId = user?.uid;
         <ChevronDownIcon open={open} />
       </button>
 
-      {/* Collapsible body */}
+    
 {open && (
   <div className="border-t border-zinc-100 px-5 pb-5 pt-4 dark:border-zinc-800">
-          {/* Links list */}
+       
           {loading ? (
             <div className="flex justify-center py-6">
               <SpinnerIcon className="h-5 w-5 text-indigo-400" />
@@ -541,7 +532,6 @@ const userId = user?.uid;
             </ul>
           )}
 
-          {/* Add form */}
           {showForm ? (
             <div className="space-y-2">
               <input
@@ -594,7 +584,6 @@ const userId = user?.uid;
   );
 }
 
-/* ─────────────────────────── Main Page ─────────────────────────── */
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -615,7 +604,6 @@ export default function DashboardPage() {
   const [submitting, setSubmitting] = useState(false);
   const [toast, setToast] = useState({ show: false, type: "success", message: "" });
 
-  /* Auth guard */
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       if (firebaseUser) {
@@ -632,7 +620,6 @@ export default function DashboardPage() {
     return () => unsubscribe();
   }, [router]);
 
-  /* Close profile drawer on outside click */
   useEffect(() => {
     function handler(e) {
       if (profileRef.current && !profileRef.current.contains(e.target)) {
@@ -734,7 +721,6 @@ export default function DashboardPage() {
     }
   }
 
-  /* ── Loading state ── */
   if (checkingAuth) {
     return (
       <div
@@ -754,10 +740,9 @@ export default function DashboardPage() {
   return (
   <div style={{ fontFamily: FONT_STACK }} className="min-h-screen overflow-y-scroll bg-zinc-50 dark:bg-[#050505]">
     
-      {/* ── Header ── */}
       <header className="sticky top-0 z-40 border-b border-zinc-200/70 bg-white/70 backdrop-blur-xl dark:border-white/10 dark:bg-zinc-900/60">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3.5 sm:px-8">
-          {/* Left: Logo */}
+       
           <div className="flex items-center gap-3">
             <LogoMark />
             <div className="leading-tight">
@@ -766,9 +751,9 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* Right: Theme + Profile */}
+       
 <div className="flex items-center gap-2">
-  {/* Profile dropdown anchor */}
+
             <div className="relative" ref={profileRef}>
               <UserProfileButton user={user} onClick={() => setProfileOpen((o) => !o)} />
               {profileOpen && (
@@ -781,7 +766,6 @@ export default function DashboardPage() {
               )}
             </div>
 
-            {/* Standalone sign-out for extra visibility (hidden on mobile where drawer covers it) */}
             <button
               onClick={handleSignOut}
               disabled={signingOut}
@@ -794,7 +778,6 @@ export default function DashboardPage() {
         </div>
       </header>
 
-      {/* ── Main ── */}
       <main className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
         <div className="mb-8 text-center sm:text-left">
           <p className="text-[12px] font-semibold uppercase tracking-wider text-indigo-500">Scholarship Application</p>
@@ -806,12 +789,10 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        {/* ── Feature 3: Saved Links Widget ── */}
         <div className="mb-6">
           <SavedLinksWidget user={user} />
         </div>
 
-        {/* Section navigator */}
         <div className="mb-3 flex gap-1.5 overflow-x-auto rounded-2xl bg-zinc-100 p-1.5 dark:bg-zinc-800/70 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {SECTIONS.map((s, i) => (
             <button
@@ -830,7 +811,6 @@ export default function DashboardPage() {
           ))}
         </div>
 
-        {/* Progress bar */}
         <div className="mb-8 h-1 w-full overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800">
           <div
             className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-sky-400 transition-all duration-500 ease-out"
@@ -838,7 +818,6 @@ export default function DashboardPage() {
           />
         </div>
 
-        {/* Form card */}
         <form onSubmit={handleSubmit}>
           <div className="min-h-[480px] rounded-3xl border border-zinc-200/70 bg-white/70 p-6 shadow-[0_8px_40px_-16px_rgba(0,0,0,0.15)] backdrop-blur-xl dark:border-white/10 dark:bg-zinc-900/50 sm:p-8">
             <div className="mb-6">
@@ -847,7 +826,6 @@ export default function DashboardPage() {
               <p className="mt-1 text-[13px] text-zinc-500 dark:text-zinc-400">{section.helper}</p>
             </div>
 
-            {/* 1. Personal Information */}
             {section.id === "personal" && (
               <div className="space-y-4">
                 <Field label="Full Name">
@@ -864,7 +842,7 @@ export default function DashboardPage() {
                     type="email"
                     required
                     className={inputClasses}
-                    placeholder="you@example.com"
+                    placeholder="Enter Your Mail"
                     value={formData.personal.email}
                     onChange={(e) => updateField("personal", "email", e.target.value)}
                   />
@@ -874,7 +852,7 @@ export default function DashboardPage() {
                     type="tel"
                     required
                     className={inputClasses}
-                    placeholder="+880 1XXX-XXXXXX"
+                    placeholder="+8801*******"
                     value={formData.personal.phone}
                     onChange={(e) => updateField("personal", "phone", e.target.value)}
                   />
@@ -882,7 +860,6 @@ export default function DashboardPage() {
               </div>
             )}
 
-            {/* 2. Academic & School Info */}
             {section.id === "academic" && (
               <div className="space-y-4">
                 <Field label="School / College Details" hint="Name, address, and current class or year.">
@@ -905,34 +882,7 @@ export default function DashboardPage() {
                   />
                 </Field>
 
-                <Field label="Transcripts" hint="PDF, JPG or PNG, up to 10MB.">
-                  <label className="flex cursor-pointer items-center gap-3 rounded-2xl border border-dashed border-zinc-300 bg-zinc-100/60 px-4 py-3 text-sm text-zinc-500 transition hover:border-indigo-400 hover:text-zinc-700 dark:border-zinc-700 dark:bg-zinc-800/50 dark:hover:border-indigo-400">
-                    <UploadIcon />
-                    <span className="truncate">{transcripts ? transcripts.name : "Choose a file to upload"}</span>
-                    <input
-                      type="file"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                      className="hidden"
-                      onChange={(e) => setTranscripts(e.target.files?.[0] || null)}
-                    />
-                  </label>
-                </Field>
-
-                <Field label="Certificates" hint="Attach proof of awards or achievements. You can select multiple files.">
-                  <label className="flex cursor-pointer items-center gap-3 rounded-2xl border border-dashed border-zinc-300 bg-zinc-100/60 px-4 py-3 text-sm text-zinc-500 transition hover:border-indigo-400 hover:text-zinc-700 dark:border-zinc-700 dark:bg-zinc-800/50 dark:hover:border-indigo-400">
-                    <UploadIcon />
-                    <span className="truncate">
-                      {certificates.length > 0 ? `${certificates.length} file(s) selected` : "Choose files to upload"}
-                    </span>
-                    <input
-                      type="file"
-                      multiple
-                      accept=".pdf,.jpg,.jpeg,.png"
-                      className="hidden"
-                      onChange={(e) => setCertificates(Array.from(e.target.files || []))}
-                    />
-                  </label>
-                </Field>
+            
 
                 <Field label="Portfolio Link" hint="Optional — a website, blog, or drive folder showcasing your work.">
                   <input
@@ -946,7 +896,6 @@ export default function DashboardPage() {
               </div>
             )}
 
-            {/* 3. Financial & Family Context */}
             {section.id === "financial" && (
               <div className="space-y-4">
                 <Field label="Family Income Details" hint="Approximate monthly or annual household income and occupation of earners.">
@@ -972,7 +921,6 @@ export default function DashboardPage() {
               </div>
             )}
 
-            {/* 4. Leadership & Experience */}
             {section.id === "leadership" && (
               <div className="space-y-4">
                 <Field label="Leadership Roles" hint="Clubs, teams, or community roles where you've led others.">
@@ -996,7 +944,6 @@ export default function DashboardPage() {
               </div>
             )}
 
-            {/* 5. Vision & Story */}
             {section.id === "vision" && (
               <div className="space-y-4">
                 <Field label="Personal Story" hint="Tell us about your journey, challenges, and what drives you.">
@@ -1022,7 +969,6 @@ export default function DashboardPage() {
               </div>
             )}
 
-            {/* 6. References */}
             {section.id === "references" && (
               <div className="space-y-4">
                 {recommenders.map((rec, i) => (
@@ -1074,7 +1020,6 @@ export default function DashboardPage() {
             )}
           </div>
 
-          {/* Bottom nav */}
           <div className="mt-6 flex items-center justify-between gap-3">
             <button
               type="button"
@@ -1106,7 +1051,6 @@ export default function DashboardPage() {
         </form>
       </main>
 
-      {/* ── Toast ── */}
       <div
         role="status"
         aria-live="polite"
